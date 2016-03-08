@@ -1,31 +1,32 @@
-var Element = function (value, prev, next) {
+var Node = function (value, prev, next) {
     this.value = value;
     this.prev = prev || null;
     this.next = next || null;
 
+    // this logic should be in List I guess
     this.prev && (this.prev.next = this);
     this.next && (this.next.prev = this);
 };
 
-var Deque = module.exports = function () {
+var List = module.exports = function () {
     this.elementCount = 0;
     this.first = null;
     this.last = null;
 };
 
-Deque.prototype.push = function (value) {
-    this.last = new Element(value, this.last);
+List.prototype.push = function (value) {
+    this.last = new Node(value, this.last);
     this.first || (this.first = this.last);
     this.elementCount += 1;
 };
 
-Deque.prototype.unshift = function (value) {
-    this.first = new Element(value, null, this.first);
+List.prototype.unshift = function (value) {
+    this.first = new Node(value, null, this.first);
     this.last || (this.last = this.first);
     this.elementCount += 1;
 };
 
-Deque.prototype.pop = function () {
+List.prototype.pop = function () {
     if (!this.elementCount) return;
 
     var value = this.last.value;
@@ -37,7 +38,7 @@ Deque.prototype.pop = function () {
     return value;
 };
 
-Deque.prototype.shift = function () {
+List.prototype.shift = function () {
     if (!this.elementCount) return;
 
     var value = this.first.value;
@@ -49,11 +50,11 @@ Deque.prototype.shift = function () {
     return value;
 };
 
-Deque.prototype.count = function () {
+List.prototype.count = function () {
     return this.elementCount;
 };
 
-Deque.prototype.delete = function (value) {
+List.prototype.delete = function (value) {
     var current = this.first;
 
     while (current) {
