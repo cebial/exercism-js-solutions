@@ -4,4 +4,4 @@ module.exports = function (array, callback) {
         result.push(callback(array[i]));
     }
     return result;
-}
+};
